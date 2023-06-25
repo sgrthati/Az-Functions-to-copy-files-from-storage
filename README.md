@@ -14,9 +14,9 @@
 
 >region="eastus"
 
->secureStore = "destsag$RANDOM"
+>secureStore="destsag$RANDOM"
 
->secureContainer = "storeddata"
+>secureContainer="storeddata"
 
 # Creating Resource Group
 
