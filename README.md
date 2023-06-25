@@ -6,17 +6,17 @@
 
 >subscriptionId=$(az account show --query id -o tsv)
 
->$resourceGroupName="Function-App"
+>resourceGroupName="Function-App"
 
->$storageName="storagefuncsag$RANDOM"
+>storageName="storagefuncsag$RANDOM"
 
->$functionAppName = "azurefunctionsag$RANDOM"
+>functionAppName="azurefunctionsag$RANDOM"
 
->$region = "eastus"
+>region="eastus"
 
->$secureStore = "destsag$RANDOM"
+>secureStore = "destsag$RANDOM"
 
->$secureContainer = "storeddata"
+>secureContainer = "storeddata"
 
 # Creating Resource Group
 
@@ -42,7 +42,7 @@
 
 >az storage container create --account-name "$secureStore" --name "$secureContainer" --auth-mode login
 
-# Assigning Azure function to read role for Storage
+# Assigning Read and write roles to Azure Function App
 
 >FunctionIdentity=$(az resource list --name $functionAppName --query [*].identity.principalId --out tsv)
 
@@ -50,4 +50,13 @@
 
 >az role assignment create --role "Storage Blob Data Contributor" --assignee $FunctionIdentity --scope "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$secureStore/blobServices/default/containers/$secureContainer"
 
-#storing Azure storage accounts connection strings as a variables in Azure Function
+# storing Azure storage accounts connection strings as a variables in Azure Function
+
+> storageNameConnection=$(az storage account show-connection-string -g $resourceGroupName  -n $storageName --query connectionString --out tsv)
+
+>  secureStoreConnection=$(az storage account show-connection-string -g $resourceGroupName  -n $secureStore --query connectionString --out tsv)
+
+> az functionapp config appsettings set --name "$functionAppName" --resource-group "$resourceGroupName" --settings "storageNameConnectionString=$storageNameConnection"
+
+> az functionapp config appsettings set --name "$functionAppName" --resource-group "$resourceGroupName" --settings "secureStoreConnectionString=$secureStoreConnection"
+
