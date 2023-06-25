@@ -62,3 +62,26 @@
 
 > az functionapp config appsettings set --name "$functionAppName" --resource-group "$resourceGroupName" --settings "secureStoreConnectionString=$secureStoreConnection"
 
+# Then we have to create a Blob Function in azure function APP
+> Choose "Functions" from left blade and click on "Create"
+![image](https://github.com/sgrthati/Az-Functions-to-copy-files-from-storage/assets/101870480/cdcf547a-ee31-4092-9343-61112f150a9e)
+
+# Creating a azure blob trigger
+
+> here we have to choose "Azure Blob Storage trigger" then we have to do chnages as per below screenshot
+
+> in below Screenshot,Storage account connection will take a look on given path "container/{blob}.txt",here i intentionally mentioned to look only txt files
+
+![image](https://github.com/sgrthati/Az-Functions-to-copy-files-from-storage/assets/101870480/2b4249ea-9dd1-402d-b6dd-c88b7c820acb)
+
+# here we are implementing whenever new file identified above mentioned storage and path,it will do copy to below mentioned storage
+
+> do changes like below Screenshot
+
+![image](https://github.com/sgrthati/Az-Functions-to-copy-files-from-storage/assets/101870480/415d567a-6565-4563-85db-6c24ca1de6c0)
+
+>we have to enable Az module to work internally we have to do below changes
+
+![image](https://github.com/sgrthati/Az-Functions-to-copy-files-from-storage/assets/101870480/c3e364ff-90e2-40a6-a29d-96820a73c76a)
+
+>It's done,will look on result part
