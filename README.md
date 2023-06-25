@@ -42,6 +42,8 @@
 
 >az storage container create --account-name "$secureStore" --name "$secureContainer" --auth-mode login
 
+>az storage container create --account-name "$storageName" --name "$secureContainer" --auth-mode login
+
 # Assigning Read and write roles to Azure Function App
 
 >FunctionIdentity=$(az resource list --name $functionAppName --query [*].identity.principalId --out tsv)
